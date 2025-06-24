@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活动报名 - 绿色地球</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 导航栏（同首页） -->
+    <header>
+        <nav>
+            <div class="logo">绿色地球</div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="knowledge.html">环保知识</a></li>
+                <li class="active"><a href="events.html">活动报名</a></li>
+                <li><a href="about.html">关于我们</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 活动日历 -->
+    <section class="events-calendar">
+        <h2 class="section-title">活动日历</h2>
+        <div class="calendar-container">
+            <!-- 日历表格 -->
+            <table class="calendar">
+                <thead>
+                    <tr>
+                        <th>周日</th>
+                        <th>周一</th>
+                        <th>周二</th>
+                        <th>周三</th>
+                        <th>周四</th>
+                        <th>周五</th>
+                        <th>周六</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 日历内容将通过JavaScript动态生成 -->
+                </tbody>
+            </table>
+            
+            <!-- 活动详情 -->
+            <div class="event-details">
+                <h3>本周活动</h3>
+                <div class="event-item">
+                    <!-- 活动图片占位 -->
+                    <div class="event-img-placeholder"></div>
+                    <div class="event-info">
+                        <h4>学校垃圾分类指导</h4>
+                        <p><strong>时间:</strong> 2025年6月20日 9:00-11:00</p>
+                        <p><strong>地点:</strong> 溪山剧场门口</p>
+                        <button class="register-btn">立即报名</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 报名表单（默认隐藏） -->
+    <section class="registration-form hidden">
+        <h2 class="section-title">活动报名表</h2>
+        <form id="event-registration">
+            <div class="form-group">
+                <label for="name">姓名</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">电子邮箱</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">联系电话</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="event">选择活动</label>
+                <select id="event" name="event">
+                    <option value="垃圾分类指导">学校垃圾分类指导</option>
+                    <option value="植树活动">春季植树活动</option>
+                    <option value="环保讲座">环保知识讲座</option>
+                </select>
+            </div>
+            <button type="submit" class="submit-btn">提交报名</button>
+        </form>
+    </section>
+
+    <!-- 报名成功提示（默认隐藏） -->
+    <div class="success-message hidden">
+        <div class="message-box">
+            <h3>报名成功！</h3>
+            <p>我们已收到您的报名信息，活动前会发送确认邮件给您。</p>
+            <button class="close-message">关闭</button>
+        </div>
+    </div>
+
+    <!-- 页脚（同首页） -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 贵州大学绿色地球环保组织</p>
+            <div class="social-icons">
+                <a href="#"><img src="images/facebook-icon.png" alt="Facebook"></a>
+                <a href="#"><img src="images/twitter-icon.png" alt="Twitter"></a>
+                <a href="#"><img src="images/instagram-icon.png" alt="Instagram"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们 - 绿色地球</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- 导航栏（同首页） -->
+    <header>
+        <nav>
+            <div class="logo">绿色地球</div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="knowledge.html">环保知识</a></li>
+                <li><a href="events.html">活动报名</a></li>
+                <li class="active"><a href="about.html">关于我们</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 团队介绍 -->
+    <section class="team-section">
+        <h2 class="section-title">我们的团队</h2>
+        <div class="team-members">
+            <div class="team-member">
+                <!-- 替换为团队成员照片 -->
+                <img src="images/team/member1.jpg" alt="黄永楠" class="member-photo">
+                <h3>黄永楠</h3>
+                <p class="position">成员1</p>
+                <p class="bio"></p>
+            </div>
+            <div class="team-member">
+                <img src="images/team/member2.jpg" alt="李松林" class="member-photo">
+                <h3>李松林</h3>
+                <p class="position">成员2</p>
+                <p class="bio"></p>
+            </div>
+            <div class="team-member">
+                <img src="images/team/member3.jpg" alt="胡家源" class="member-photo">
+                <h3>胡家源</h3>
+                <p class="position">成员3</p>
+                <p class="bio"></p>
+            </div>
+            <div class="team-member">
+                <img src="images/team/member4.jpg" alt="何国境" class="member-photo">
+                <h3>何国境</h3>
+                <p class="position">成员4</p>
+                <p class="bio"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系表单 -->
+    <section class="contact-section">
+        <h2 class="section-title">联系我们</h2>
+        <div class="contact-container">
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="contact-name">姓名</label>
+                    <input type="text" id="contact-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">电子邮箱</label>
+                    <input type="email" id="contact-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-message">留言内容</label>
+                    <textarea id="contact-message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">发送留言</button>
+            </form>
+
+            <!-- 地图区域 -->
+            <div class="map-container">
+                <h3>我们的位置</h3>
+                <!-- 替换为实际地图iframe代码 -->
+                <div id="container" style="width: 100%; height: 400px;"></div>
+                <script src="https://webapi.amap.com/maps?v=2.0&key=57f0929779a0e32d1313b77b5e12cdad"></script>
+                <script>
+                    var map = new AMap.Map('container', {
+                        zoom: 17, // 地图显示的缩放级别
+                        center: [106.656025, 26.44971] // 地图中心点坐标，这里以贵州大学大致位置为例
+                    });
+                    // 添加一个标记点
+                    var marker = new AMap.Marker({
+                        position: new AMap.LngLat(106.656025, 26.44971)
+                    });
+                    marker.setMap(map);
+                </script>
+                <div class="contact-info">
+                    <p><strong>地址:</strong> 贵州大学西校区18栋</p>
+                    <p><strong>电话:</strong> 2333333333333333</p>
+                    <p><strong>邮箱:</strong> gzuNB666@qq.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚（同首页） -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 贵州大学绿色地球环保组织</p>
+            <div class="social-icons">
+                <a href="#"><img src="images/facebook-icon.png" alt="Facebook"></a>
+                <a href="#"><img src="images/twitter-icon.png" alt="Twitter"></a>
+                <a href="#"><img src="images/instagram-icon.png" alt="Instagram"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

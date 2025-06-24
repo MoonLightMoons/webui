@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>环保知识 - 绿色地球</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 导航栏（同首页） -->
+    <header>
+        <nav>
+            <div class="logo">绿色地球</div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li class="active"><a href="knowledge.html">环保知识</a></li>
+                <li><a href="events.html">活动报名</a></li>
+                <li><a href="about.html">关于我们</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 知识分类侧边栏 -->
+    <div class="knowledge-container">
+        <aside class="knowledge-sidebar">
+            <h3>知识分类</h3>
+            <ul>
+                <li class="active">垃圾分类</li>
+                <li>节能减排</li>
+                <li>绿色出行</li>
+                <li>可持续生活</li>
+            </ul>
+        </aside>
+
+        <!-- 知识卡片主区域 -->
+        <main class="knowledge-main">
+            <h2 class="section-title">垃圾分类知识</h2>
+            <div class="knowledge-cards">
+                <article class="knowledge-card">
+                    <!-- 可以在此添加分类示意图 -->
+                    <div class="card-img-placeholder" style="background-color: #ffeb3b;"></div>
+                    <h3>可回收物</h3>
+                    <p>包括废纸、塑料、玻璃、金属和布料等</p>
+                    <button class="read-more">了解更多</button>
+                </article>
+                
+                <article class="knowledge-card">
+                    <div class="card-img-placeholder" style="background-color: #f44336;"></div>
+                    <h3>有害垃圾</h3>
+                    <p>包括废电池、废日光灯管、废水银温度计等</p>
+                    <button class="read-more">了解更多</button>
+                </article>
+                
+                <article class="knowledge-card">
+                    <div class="card-img-placeholder" style="background-color: #4caf50;"></div>
+                    <h3>厨余垃圾</h3>
+                    <p>包括剩菜剩饭、骨头、菜根菜叶等食品类废物</p>
+                    <button class="read-more">了解更多</button>
+                </article>
+                
+                <article class="knowledge-card">
+                    <div class="card-img-placeholder" style="background-color: #9e9e9e;"></div>
+                    <h3>其他垃圾</h3>
+                    <p>包括砖瓦陶瓷、渣土、卫生间废纸等难以回收的废弃物</p>
+                    <button class="read-more">了解更多</button>
+                </article>
+            </div>
+        </main>
+    </div>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top">↑</button>
+
+    <!-- 页脚（同首页） -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 贵州大学绿色地球环保组织</p>
+            <div class="social-icons">
+                <a href="#"><img src="images/facebook-icon.png" alt="Facebook"></a>
+                <a href="#"><img src="images/twitter-icon.png" alt="Twitter"></a>
+                <a href="#"><img src="images/instagram-icon.png" alt="Instagram"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
