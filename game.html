@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>环保知识 - 绿色地球</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/game.css">
+
+
+
+
+
+
+</head>
+
+<body>
+
+  <header>
+    <nav>
+      <div class="logo">绿色地球</div>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li class="active"><a href="knowledge.html">环保知识</a></li>
+        <li><a href="events.html">活动报名</a></li>
+        <li><a href="about.html">关于我们</a></li>
+      </ul>
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </nav>
+  </header>
+
+
+  <div class="knowledge-container">
+    <aside class="knowledge-sidebar">
+      <h3>知识分类</h3>
+      <ul>
+        <li class="active">垃圾分类</li>
+        <li>节能减排</li>
+        <li>绿色出行</li>
+        <li>可持续生活</li>
+      </ul>
+    </aside>
+
+
+    <div class="container">
+      <!-- 游戏标题 -->
+      <div class="game-title">
+        <h1>垃圾分类小能手</h1>
+        <p>将垃圾拖放到正确的垃圾桶中，挑战你的环保知识！</p>
+      </div>
+
+      <!-- 游戏状态栏 -->
+      <div class="status-bar">
+        <button id="start-btn" class="primary-btn" onclick="initGame()"><i class="fa fa-play"></i> 开始游戏</button><button class="primary-btn" onclick="history.back()"><i class="fa fa-arrow-left"></i> 返回</button>
+        <div class="status-item">
+          <div class="status-icon">
+            <i class="fa fa-star text-primary text-2xl"></i>
+          </div>
+          <div class="status-info">
+            <p class="label">当前得分</p>
+            <p class="value" id="score-value">0</p>
+          </div>
+        </div>
+        <div class="status-item">
+            <div class="status-icon">
+              <i class="fa fa-clock-o text-primary text-2xl"></i>
+            </div>
+            <div class="status-info">
+              <p class="label">剩余时间</p>
+              <p class="value" id="time-value">60</p>
+            </div>
+        </div>
+        <div class="status-item">
+          <div class="status-icon organic-bg">
+            <i class="fa fa-check text-white text-2xl"></i>
+          </div>
+          <div class="status-info">
+            <p class="label">正确</p>
+            <p class="value text-organic" id="correct-value">0</p>
+          </div>
+        </div>
+        <div class="status-item">
+          <div class="status-icon hazardous-bg">
+            <i class="fa fa-times text-white text-2xl"></i>
+          </div>
+          <div class="status-info">
+            <p class="label">错误</p>
+            <p class="value text-hazardous" id="wrong-value">0</p>
+          </div>
+        </div>
+        <div class="status-item">
+          <button id="restart-btn" class="primary-btn">
+            <i class="fa fa-refresh mr-2"></i> 重新开始
+          </button>
+        </div>
+        <div class="status-item">
+          <button id="end-game-btn" class="primary-btn bg-hazardous">
+            <i class="fa fa-stop mr-2"></i> 结束游戏
+          </button>
+        </div>
+      </div>
+
+
+      <div class="game-area">
+
+        <div class="game-section">
+          <h2 class="section-title">投放垃圾</h2>
+          <div id="garbage-container" class="garbage-container">
+            <!-- 垃圾项目将通过JS动态生成 -->
+          </div>
+        </div>
+
+
+        <div class="game-section">
+          <h2 class="section-title">垃圾桶</h2>
+          <div id="bin-area" class="bin-container">
+            <div id="organic-bin" class="bin organic-bg bin-highlight" data-type="organic">
+              <i class="fa fa-leaf"></i>
+              <span>厨余垃圾</span>
+            </div>
+            <div id="recyclable-bin" class="bin recyclable-bg bin-highlight" data-type="recyclable">
+              <i class="fa fa-recycle"></i>
+              <span>可回收物</span>
+            </div>
+            <div id="hazardous-bin" class="bin hazardous-bg bin-highlight" data-type="hazardous">
+              <i class="fa fa-exclamation-triangle"></i>
+              <span>有害垃圾</span>
+            </div>
+            <div id="other-bin" class="bin other-bg bin-highlight" data-type="other">
+              <i class="fa fa-trash"></i>
+              <span>其他垃圾</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="guide-section">
+        <h2 class="section-title">垃圾分类指南</h2>
+        <div class="guide-container">
+          <div class="guide-item organic-bg/10">
+            <h3 class="text-organic">厨余垃圾</h3>
+            <p>包括剩菜剩饭、骨头、菜根菜叶、果皮等食品类废物。</p>
+          </div>
+          <div class="guide-item recyclable-bg/10">
+            <h3 class="text-recyclable">可回收物</h3>
+            <p>包括废纸、塑料、玻璃、金属和布料等。</p>
+          </div>
+          <div class="guide-item hazardous-bg/10">
+            <h3 class="text-hazardous">有害垃圾</h3>
+            <p>包括废电池、废日光灯管、废水银温度计、过期药品等。</p>
+          </div>
+          <div class="guide-item other-bg/10">
+            <h3 class="text-other">其他垃圾</h3>
+            <p>包括除上述几类垃圾之外的砖瓦陶瓷、渣土、卫生间废纸等难以回收的废弃物。</p>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="game-over-modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="modal-icon">
+              <i class="fa fa-trophy"></i>
+            </div>
+            <h2 class="modal-title" id="result-title">游戏结束!</h2>
+            <p class="modal-message" id="result-message">你已完成挑战</p>
+          </div>
+          <div class="stats-container">
+            <div class="stat-item">
+                <p class="stat-label">得分</p>
+                <p class="stat-value" id="final-score">0</p>
+            </div>
+            <div class="stat-item">
+                <p class="stat-label">正确</p>
+                <p class="stat-value text-organic" id="final-correct">0</p>
+            </div>
+            <div class="stat-item">
+                <p class="stat-label">错误</p>
+                <p class="stat-value text-hazardous" id="final-wrong">0</p>
+            </div>
+            <div class="stat-item">
+              <p class="stat-label">正确率</p>
+              <p class="stat-value text-organic" id="accuracy">0%</p>
+            </div>
+          </div>
+          <button id="play-again-btn" class="secondary-btn">
+            再玩一次
+          </button>
+        </div>
+      </div>
+
+      <!-- 反馈提示 -->
+      <div id="feedback" class="feedback"></div>
+    </div>
+  </div>
+
+
+  <button class="back-to-top">↑</button>
+
+  <!-- 页脚（同首页） -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 贵州大学绿色地球环保组织</p>
+      <div class="social-icons">
+        <a href="https://weibo.com/u/6593199887"><img src="images/icon/weibo.png" alt="weibo"></a>
+        <a href="https://space.bilibili.com/401742377"><img src="images/icon/bilibili.png" alt="bilibili"></a>
+        <a href="https://www.yuanshen.com/"><img src="images/icon/wechat.png" alt="wechat"></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/game.js"></script>
+</body>
+
+</html>

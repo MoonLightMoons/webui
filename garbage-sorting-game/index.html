@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>垃圾分类小游戏</title>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        /* 基础样式 */
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(to bottom right, #e0f2fe, #e0e7ff);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* 标题样式 */
+        .game-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .game-title h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: bold;
+            background: linear-gradient(to right, #4F46E5, #EC4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        
+        .game-title p {
+            color: #64748B;
+            font-size: 1.1rem;
+        }
+        
+        /* 状态栏样式 */
+        .status-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem;
+        }
+        
+        .status-icon {
+            background-color: rgba(79, 70, 229, 0.1);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            margin-right: 1rem;
+        }
+        
+        .status-icon i {
+            font-size: 1.5rem;
+        }
+        
+        .status-info p {
+            margin: 0;
+        }
+        
+        .status-info .label {
+            font-size: 0.8rem;
+            color: #64748B;
+        }
+        
+        .status-info .value {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #1E293B;
+        }
+        
+        .primary-btn {
+            background-color: #EC4899;
+            color: white;
+            font-weight: bold;
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .primary-btn:hover {
+            background-color: #DB2777;
+            transform: scale(1.05);
+        }
+        
+        /* 游戏区域样式 */
+        .game-area {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .game-area {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+        
+        .game-section {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #1E293B;
+            margin-bottom: 1rem;
+        }
+        
+        /* 垃圾区域样式 */
+        .garbage-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            min-height: 300px;
+        }
+        
+        @media (min-width: 640px) {
+            .garbage-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .garbage-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .garbage-item {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            animation: floating 3s ease-in-out infinite;
+            margin: 0 auto;
+        }
+        
+        .garbage-item:hover {
+            transform: scale(1.1);
+        }
+        
+        .garbage-item:active {
+            transform: scale(0.95);
+        }
+        
+        .organic-bg {
+            background-color: #10B981;
+        }
+        
+        .recyclable-bg {
+            background-color: #3B82F6;
+        }
+        
+        .hazardous-bg {
+            background-color: #EF4444;
+        }
+        
+        .other-bg {
+            background-color: #A3A3A3;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* 垃圾桶样式 */
+        .bin-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            min-height: 300px;
+        }
+        
+        .bin {
+            width: 8rem;
+            height: 8rem;
+            border-radius: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .bin:hover {
+            transform: scale(1.05);
+        }
+        
+        .bin i {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* 指南样式 */
+        .guide-section {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+        }
+        
+        .guide-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .guide-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .guide-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .guide-item {
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+        
+        .guide-item h3 {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .guide-item p {
+            font-size: 0.9rem;
+            color: #64748B;
+        }
+        
+        /* 结果弹窗样式 */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            max-width: 30rem;
+            width: 100%;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 5rem;
+            height: 5rem;
+            border-radius: 9999px;
+            background-color: rgba(16, 185, 129, 0.1);
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-icon i {
+            font-size: 2.5rem;
+            color: #10B981;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1E293B;
+            margin-bottom: 0.5rem;
+        }
+        
+        .modal-message {
+            color: #64748B;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat-item {
+            background-color: #F8FAFC;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: #64748B;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4F46E5;
+        }
+        
+        .secondary-btn {
+            background-color: #4F46E5;
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+        
+        .secondary-btn:hover {
+            background-color: #4338CA;
+            transform: scale(1.05);
+        }
+        
+        /* 拖拽样式 */
+        .dragging {
+            opacity: 0.5;
+            transform: scale(0.9);
+        }
+        
+        .bin-highlight {
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5);
+        }
+        
+        .bin-hover {
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.8);
+        }
+        
+        /* 反馈提示 */
+        .feedback {
+            position: fixed;
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 50;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.25rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .feedback.show {
+            opacity: 1;
+        }
+        
+        .correct-feedback {
+            background-color: #10B981;
+        }
+        
+        .wrong-feedback {
+            background-color: #EF4444;
+        }
+    </style>
+</head>
+<body>
+    <!-- 游戏容器 -->
+    <div class="container">
+        <!-- 游戏标题 -->
+        <div class="game-title">
+            <h1>垃圾分类小能手</h1>
+            <p>将垃圾拖放到正确的垃圾桶中，挑战你的环保知识！</p>
+        </div>
+
+        <!-- 游戏状态栏 -->
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-icon">
+                    <i class="fa fa-clock-o text-primary text-2xl"></i>
+                </div>
+                <div class="status-info">
+                    <p class="label">剩余时间</p>
+                    <p class="value" id="timer">60</p>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-icon organic-bg">
+                    <i class="fa fa-check text-white text-2xl"></i>
+                </div>
+                <div class="status-info">
+                    <p class="label">正确</p>
+                    <p class="value text-organic" id="correct-count">0</p>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-icon hazardous-bg">
+                    <i class="fa fa-times text-white text-2xl"></i>
+                </div>
+                <div class="status-info">
+                    <p class="label">错误</p>
+                    <p class="value text-hazardous" id="wrong-count">0</p>
+                </div>
+            </div>
+            <div class="status-item">
+                <button id="restart-btn" class="primary-btn">
+                    <i class="fa fa-refresh mr-2"></i> 重新开始
+                </button>
+            </div>
+            <div class="status-item">
+                <button id="end-game-btn" class="primary-btn bg-hazardous">
+                    <i class="fa fa-stop mr-2"></i> 结束游戏
+                </button>
+            </div>
+        </div>
+
+        <!-- 游戏区域 -->
+        <div class="game-area">
+            <!-- 垃圾投放区 -->
+            <div class="game-section">
+                <h2 class="section-title">投放垃圾</h2>
+                <div id="garbage-area" class="garbage-container">
+                    <!-- 垃圾项目将通过JS动态生成 -->
+                </div>
+            </div>
+
+            <!-- 垃圾桶区域 -->
+            <div class="game-section">
+                <h2 class="section-title">垃圾桶</h2>
+                <div id="bin-area" class="bin-container">
+                    <div class="bin organic-bg bin-highlight" data-type="organic">
+                        <i class="fa fa-leaf"></i>
+                        <span>厨余垃圾</span>
+                    </div>
+                    <div class="bin recyclable-bg bin-highlight" data-type="recyclable">
+                        <i class="fa fa-recycle"></i>
+                        <span>可回收物</span>
+                    </div>
+                    <div class="bin hazardous-bg bin-highlight" data-type="hazardous">
+                        <i class="fa fa-biohazard"></i>
+                        <span>有害垃圾</span>
+                    </div>
+                    <div class="bin other-bg bin-highlight" data-type="other">
+                        <i class="fa fa-trash"></i>
+                        <span>其他垃圾</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 提示和帮助 -->
+        <div class="guide-section">
+            <h2 class="section-title">垃圾分类指南</h2>
+            <div class="guide-container">
+                <div class="guide-item organic-bg/10">
+                    <h3 class="text-organic">厨余垃圾</h3>
+                    <p>包括剩菜剩饭、骨头、菜根菜叶、果皮等食品类废物。</p>
+                </div>
+                <div class="guide-item recyclable-bg/10">
+                    <h3 class="text-recyclable">可回收物</h3>
+                    <p>包括废纸、塑料、玻璃、金属和布料等。</p>
+                </div>
+                <div class="guide-item hazardous-bg/10">
+                    <h3 class="text-hazardous">有害垃圾</h3>
+                    <p>包括废电池、废日光灯管、废水银温度计、过期药品等。</p>
+                </div>
+                <div class="guide-item other-bg/10">
+                    <h3 class="text-other">其他垃圾</h3>
+                    <p>包括除上述几类垃圾之外的砖瓦陶瓷、渣土、卫生间废纸等难以回收的废弃物。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 游戏结果弹窗 -->
+        <div id="result-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-icon">
+                        <i class="fa fa-trophy"></i>
+                    </div>
+                    <h2 class="modal-title" id="result-title">游戏结束!</h2>
+                    <p class="modal-message" id="result-message">你已完成挑战</p>
+                </div>
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <p class="stat-label">得分</p>
+                        <p class="stat-value" id="final-score">0</p>
+                    </div>
+                    <div class="stat-item">
+                        <p class="stat-label">正确率</p>
+                        <p class="stat-value text-organic" id="accuracy">0%</p>
+                    </div>
+                </div>
+                <button id="play-again-btn" class="secondary-btn">
+                    再玩一次
+                </button>
+            </div>
+        </div>
+
+        <!-- 反馈提示 -->
+        <div id="feedback" class="feedback"></div>
+    </div>
+
+    <script>
+        // 垃圾分类数据
+        const garbageItems = [
+            { name: '香蕉皮', type: 'organic', icon: 'fa-lemon-o' },
+            { name: '牛奶盒', type: 'recyclable', icon: 'fa-coffee' },
+            { name: '电池', type: 'hazardous', icon: 'fa-battery-full' },
+            { name: '报纸', type: 'recyclable', icon: 'fa-newspaper-o' },
+            { name: '剩饭', type: 'organic', icon: 'fa-cutlery' },
+            { name: '塑料瓶', type: 'recyclable', icon: 'fa-flask' },
+            { name: '过期药品', type: 'hazardous', icon: 'fa-medkit' },
+            { name: '卫生纸', type: 'other', icon: 'fa-file-text-o' },
+            { name: '玻璃瓶', type: 'recyclable', icon: 'fa-glass' },
+            { name: '果皮', type: 'organic', icon: 'fa-apple' },
+            { name: '荧光灯管', type: 'hazardous', icon: 'fa-lightbulb-o' },
+            { name: '一次性餐具', type: 'other', icon: 'fa-utensils' },
+            { name: '易拉罐', type: 'recyclable', icon: 'fa-beer' },
+            { name: '茶叶渣', type: 'organic', icon: 'fa-leaf' },
+            { name: '杀虫剂', type: 'hazardous', icon: 'fa-bug' },
+            { name: '陶瓷碗', type: 'other', icon: 'fa-coffee' }
+        ];
+
+        // 游戏状态
+        let gameState = {
+            score: 0,
+            correct: 0,
+            wrong: 0,
+            timeLeft: 60,
+            timer: null,
+            activeGarbage: null,
+            gameOver: false
+        };
+
+        // DOM 元素
+        const garbageArea = document.getElementById('garbage-area');
+        const timerElement = document.getElementById('timer');
+        const correctCountElement = document.getElementById('correct-count');
+        const wrongCountElement = document.getElementById('wrong-count');
+        const restartButton = document.getElementById('restart-btn');
+        const endGameButton = document.getElementById('end-game-btn');
+        const resultModal = document.getElementById('result-modal');
+        const resultTitle = document.getElementById('result-title');
+        const resultMessage = document.getElementById('result-message');
+        const finalScore = document.getElementById('final-score');
+        const accuracy = document.getElementById('accuracy');
+        const playAgainButton = document.getElementById('play-again-btn');
+        const feedbackElement = document.getElementById('feedback');
+
+        // 初始化游戏
+        function initGame() {
+            // 重置游戏状态
+            gameState = {
+                score: 0,
+                correct: 0,
+                wrong: 0,
+                timeLeft: 60,
+                timer: null,
+                activeGarbage: null,
+                gameOver: false
+            };
+
+            // 更新UI
+            updateScoreboard();
+            generateGarbageItems();
+            
+            // 清除定时器并开始新游戏
+            if (gameState.timer) clearInterval(gameState.timer);
+            gameState.timer = setInterval(updateTimer, 1000);
+            
+            // 隐藏结果弹窗
+            resultModal.classList.remove('active');
+        }
+
+        // 生成垃圾项目
+        function generateGarbageItems() {
+            // 清空垃圾区域
+            garbageArea.innerHTML = '';
+            
+            // 随机选择8个垃圾项目
+            const shuffledItems = [...garbageItems].sort(() => 0.5 - Math.random()).slice(0, 8);
+            
+            // 创建垃圾元素
+            shuffledItems.forEach(item => {
+                const garbageElement = document.createElement('div');
+                garbageElement.className = `garbage-item ${item.type}-bg`;
+                garbageElement.setAttribute('draggable', 'true');
+                garbageElement.setAttribute('data-type', item.type);
+                garbageElement.innerHTML = `
+                    <div class="text-center">
+                        <i class="fa ${item.icon} text-3xl mb-1"></i>
+                        <span class="text-sm">${item.name}</span>
+                    </div>
+                `;
+                
+                // 添加拖拽事件
+                garbageElement.addEventListener('dragstart', handleDragStart);
+                garbageElement.addEventListener('dragend', handleDragEnd);
+                
+                garbageArea.appendChild(garbageElement);
+            });
+        }
+
+        // 处理拖拽开始
+        function handleDragStart(e) {
+            this.classList.add('dragging');
+            gameState.activeGarbage = this;
+            e.dataTransfer.setData('text/plain', this.getAttribute('data-type'));
+            
+            // 为垃圾桶添加拖拽悬停效果
+            document.querySelectorAll('.bin').forEach(bin => {
+                bin.classList.add('bin-hover');
+                bin.addEventListener('dragover', handleDragOver);
+                bin.addEventListener('dragenter', handleDragEnter);
+                bin.addEventListener('dragleave', handleDragLeave);
+                bin.addEventListener('drop', handleDrop);
+            });
+        }
+
+        // 处理拖拽结束
+        function handleDragEnd() {
+            this.classList.remove('dragging');
+            gameState.activeGarbage = null;
+            
+            // 移除垃圾桶的拖拽悬停效果
+            document.querySelectorAll('.bin').forEach(bin => {
+                bin.classList.remove('bin-hover');
+                bin.removeEventListener('dragover', handleDragOver);
+                bin.removeEventListener('dragenter', handleDragEnter);
+                bin.removeEventListener('dragleave', handleDragLeave);
+                bin.removeEventListener('drop', handleDrop);
+            });
+        }
+
+        // 处理拖拽悬停
+        function handleDragOver(e) {
+            e.preventDefault();
+        }
+
+        // 处理拖拽进入
+        function handleDragEnter(e) {
+            e.preventDefault();
+            if (this !== gameState.activeGarbage) {
+                this.classList.add('bin-hover');
+            }
+        }
+
+        // 处理拖拽离开
+        function handleDragLeave() {
+            this.classList.remove('bin-hover');
+        }
+
+        // 处理投放
+        function handleDrop(e) {
+            e.preventDefault();
+            this.classList.remove('bin-hover');
+            
+            const garbageType = e.dataTransfer.getData('text/plain');
+            const binType = this.getAttribute('data-type');
+            
+            // 检查分类是否正确
+            const isCorrect = garbageType === binType;
+            
+            // 更新分数
+            updateScore(isCorrect);
+            
+            // 显示反馈动画
+            showFeedback(isCorrect, this);
+            
+            // 移除已投放的垃圾
+            if (gameState.activeGarbage && gameState.activeGarbage.parentNode) {
+                gameState.activeGarbage.parentNode.removeChild(gameState.activeGarbage);
+            }
+            
+            // 如果垃圾区域为空，生成新的垃圾
+            if (garbageArea.children.length === 0) {
+                setTimeout(generateGarbageItems, 1000);
+            }
+        }
+
+        // 显示反馈动画
+        function showFeedback(isCorrect, binElement) {
+            feedbackElement.innerHTML = isCorrect 
+                ? '<i class="fa fa-check mr-2"></i> 分类正确!' 
+                : '<i class="fa fa-times mr-2"></i> 分类错误!';
+            
+            feedbackElement.className = `feedback ${isCorrect ? 'correct-feedback' : 'wrong-feedback'}`;
+            
+            document.body.appendChild(feedbackElement);
+            
+            // 显示反馈
+            setTimeout(() => {
+                feedbackElement.classList.add('show');
+            }, 10);
+            
+            // 隐藏反馈
+            setTimeout(() => {
+                feedbackElement.classList.remove('show');
+                setTimeout(() => {
+                    feedbackElement.innerHTML = '';
+                }, 300);
+            }, 1500);
+            
+            // 垃圾桶动画效果
+            if (isCorrect) {
+                binElement.classList.add('scale-110');
+                setTimeout(() => binElement.classList.remove('scale-110'), 500);
+            } else {
+                binElement.classList.add('scale-90');
+                setTimeout(() => binElement.classList.remove('scale-90'), 500);
+            }
+        }
+
+        // 更新分数
+        function updateScore(isCorrect) {
+            if (isCorrect) {
+                gameState.score += 10;
+                gameState.correct++;
+            } else {
+                gameState.wrong++;
+            }
+            
+            updateScoreboard();
+        }
+
+        // 更新计分板
+        function updateScoreboard() {
+            timerElement.textContent = gameState.timeLeft;
+            correctCountElement.textContent = gameState.correct;
+            wrongCountElement.textContent = gameState.wrong;
+        }
+
+        // 更新计时器
+        function updateTimer() {
+            gameState.timeLeft--;
+            updateScoreboard();
+            
+            // 检查游戏是否结束
+            if (gameState.timeLeft <= 0) {
+                endGame();
+            }
+        }
+
+        // 游戏结束
+        function endGame() {
+            gameState.gameOver = true;
+            clearInterval(gameState.timer);
+            
+            // 计算正确率
+            const total = gameState.correct + gameState.wrong;
+            const accuracyRate = total > 0 ? Math.round((gameState.correct / total) * 100) : 0;
+            
+            // 更新结果弹窗
+            finalScore.textContent = gameState.score;
+            accuracy.textContent = `${accuracyRate}%`;
+            
+            // 根据正确率设置标题和消息
+            if (accuracyRate >= 90) {
+                resultTitle.textContent = '太棒了!';
+                resultMessage.textContent = '你是垃圾分类专家!';
+            } else if (accuracyRate >= 70) {
+                resultTitle.textContent = '做得不错!';
+                resultMessage.textContent = '你已经掌握了大部分垃圾分类知识!';
+            } else if (accuracyRate >= 50) {
+                resultTitle.textContent = '继续努力!';
+                resultMessage.textContent = '你已经有了垃圾分类的基础!';
+            } else {
+                resultTitle.textContent = '需要练习!';
+                resultMessage.textContent = '多学习垃圾分类知识，保护我们的环境!';
+            }
+            
+            // 显示结果弹窗
+            resultModal.classList.add('active');
+        }
+
+        // 添加事件监听器
+        restartButton.addEventListener('click', initGame);
+        playAgainButton.addEventListener('click', initGame);
+        endGameButton.addEventListener('click', endGame);
+
+        // 初始化游戏
+        document.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>
+    
