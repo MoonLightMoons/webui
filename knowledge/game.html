@@ -5,10 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>环保知识 - 绿色地球</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="icon" type="image/png" href="../images/favicon.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/game.css">
+  <link rel="stylesheet" href="../css/game.css">
+  <link rel="stylesheet" href="../css/style.css">
+
 
 
 
@@ -23,10 +24,10 @@
     <nav>
       <div class="logo">绿色地球</div>
       <ul class="nav-links">
-        <li><a href="index.html">首页</a></li>
-        <li class="active"><a href="knowledge.html">环保知识</a></li>
-        <li><a href="events.html">活动报名</a></li>
-        <li><a href="about.html">关于我们</a></li>
+        <li><a href="../index.html">首页</a></li>
+        <li class="active"><a href="../knowledge.html">环保知识</a></li>
+        <li><a href="../events.html">活动报名</a></li>
+        <li><a href="../about.html">关于我们</a></li>
       </ul>
       <div class="burger">
         <div class="line1"></div>
@@ -58,7 +59,8 @@
 
       <!-- 游戏状态栏 -->
       <div class="status-bar">
-        <button id="start-btn" class="primary-btn" onclick="initGame()"><i class="fa fa-play"></i> 开始游戏</button><button class="primary-btn" onclick="history.back()"><i class="fa fa-arrow-left"></i> 返回</button>
+        <button id="start-btn" class="primary-btn" onclick="initGame()"><i class="fa fa-play"></i> 开始游戏</button><button
+          class="primary-btn" onclick="history.back()"><i class="fa fa-arrow-left"></i> 返回</button>
         <div class="status-item">
           <div class="status-icon">
             <i class="fa fa-star text-primary text-2xl"></i>
@@ -69,13 +71,13 @@
           </div>
         </div>
         <div class="status-item">
-            <div class="status-icon">
-              <i class="fa fa-clock-o text-primary text-2xl"></i>
-            </div>
-            <div class="status-info">
-              <p class="label">剩余时间</p>
-              <p class="value" id="time-value">60</p>
-            </div>
+          <div class="status-icon">
+            <i class="fa fa-clock-o text-primary text-2xl"></i>
+          </div>
+          <div class="status-info">
+            <p class="label">剩余时间</p>
+            <p class="value" id="time-value">60</p>
+          </div>
         </div>
         <div class="status-item">
           <div class="status-icon organic-bg">
@@ -176,16 +178,16 @@
           </div>
           <div class="stats-container">
             <div class="stat-item">
-                <p class="stat-label">得分</p>
-                <p class="stat-value" id="final-score">0</p>
+              <p class="stat-label">得分</p>
+              <p class="stat-value" id="final-score">0</p>
             </div>
             <div class="stat-item">
-                <p class="stat-label">正确</p>
-                <p class="stat-value text-organic" id="final-correct">0</p>
+              <p class="stat-label">正确</p>
+              <p class="stat-value text-organic" id="final-correct">0</p>
             </div>
             <div class="stat-item">
-                <p class="stat-label">错误</p>
-                <p class="stat-value text-hazardous" id="final-wrong">0</p>
+              <p class="stat-label">错误</p>
+              <p class="stat-value text-hazardous" id="final-wrong">0</p>
             </div>
             <div class="stat-item">
               <p class="stat-label">正确率</p>
@@ -218,7 +220,7 @@
     </div>
   </footer>
 
-  <script src="js/game.js"></script>
+  <script src="../js/game.js"></script>
 </body>
 
 </html>
