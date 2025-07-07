@@ -74,8 +74,16 @@ document.addEventListener('DOMContentLoaded', function () {
     correctCountDisplay: document.getElementById('final-correct'),
     wrongCountDisplay: document.getElementById('final-wrong'),
     restartButton: document.getElementById('restart-btn'),
-    returnButton: document.getElementById('return-btn')
+    endGameButton: document.getElementById('end-game-btn')
   };
+
+  // 初始化游戏事件监听
+  function setupEventListeners() {
+    elements.startButton.addEventListener('click', initGame);
+    elements.restartButton.addEventListener('click', initGame);
+    elements.endGameButton.addEventListener('click', endGame);
+    setupBinEventListeners();
+  }
 
   // 初始化游戏
   window.initGame = function () {
@@ -189,6 +197,25 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // 开始计时器
+  // 结束游戏
+  function endGame() {
+    gameState.gameActive = false;
+    clearInterval(gameState.timer);
+
+    // 计算正确率
+    const total = gameState.correctCount + gameState.wrongCount;
+    const accuracy = total > 0 ? Math.round((gameState.correctCount / total) * 100) : 0;
+
+    // 更新结果模态框
+    document.getElementById('final-score').textContent = gameState.score;
+    document.getElementById('final-correct').textContent = gameState.correctCount;
+    document.getElementById('final-wrong').textContent = gameState.wrongCount;
+    document.getElementById('accuracy').textContent = `${accuracy}%`;
+
+    // 显示模态框
+    elements.gameOverModal.style.display = 'block';
+  }
+
   function startTimer() {
     clearInterval(gameState.timer);
     gameState.timer = setInterval(() => {
@@ -227,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //计算正确率
     const total = gameState.correctCount + gameState.wrongCount;
-    const accuracy = (gameState.correctCount / total) * 100;
+    const accuracy = gameState.correctCount != 0 ? (gameState.correctCount / total) * 100 : 0;
     // 显示游戏结束模态框
     elements.finalScoreDisplay.textContent = gameState.score;
     elements.correctCountDisplay.textContent = gameState.correctCount;

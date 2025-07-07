@@ -381,6 +381,165 @@ nav {
   overflow: hidden;
 }
 
+/* 资源与活动区域样式 */
+.resources-events-section {
+    padding: 60px 0;
+    background-color: #f9f9f9;
+}
+
+.two-column-layout {
+    display: flex;
+    gap: 60px;
+    margin-top: 30px;
+}
+
+.resource-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.document-section,
+.events-section {
+    flex: 1;
+}
+
+.document-item {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.document-content {
+    flex: 1;
+}
+
+.document-image {
+    width: 120px;
+    flex-shrink: 0;
+}
+
+.document-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+    .document-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .document-image {
+        width: 100%;
+        margin-top: 15px;
+    }
+}
+
+.document-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.document-item h4 {
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.download-btn {
+    display: inline-block;
+    margin-top: 10px;
+    color: #3498db;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #3498db;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.icon-margin-right {
+    margin-right: 0.5rem;
+}
+
+.icon-margin-right-xs {
+    margin-right: 0.25rem;
+}
+
+.download-btn:hover {
+    background-color: #3498db;
+    color: white;
+}
+
+/* 时间线样式 */
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #3498db;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.timeline-date {
+    position: absolute;
+    left: -90px;
+    top: 0;
+    background-color: #3498db;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.timeline-content {
+    background-color: white;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.event-location {
+    display: inline-block;
+    margin-top: 8px;
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+    .two-column-layout {
+        flex-direction: column;
+    }
+    .timeline-date {
+        position: static;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+    .timeline {
+        padding-left: 0;
+    }
+    .timeline::before {
+        display: none;
+    }
+}
+
 /* 页脚样式 */
 footer {
   background-color: #2E7D32;
