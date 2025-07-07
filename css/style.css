@@ -589,9 +589,15 @@ footer {
   cursor: pointer;
 }
 
-.knowledge-sidebar li.active {
+.knowledge-sidebar li.active a {
   color: #4CAF50;
   font-weight: bold;
+  text-decoration: none;
+}
+
+.knowledge-sidebar li a {
+  color: inherit;
+  text-decoration: none;
 }
 
 .knowledge-main {
