@@ -10,6 +10,12 @@
 </head>
 
 <body>
+    <!-- 视频背景 -->
+    <video class="bg-video" autoplay muted loop playsinline>
+        <source src="images/videos/background.mp4" type="video/mp4">
+        您的浏览器不支持视频播放
+    </video>
+    <div class="video-overlay"></div>
     <!-- 导航栏 -->
     <header>
         <nav>
@@ -65,7 +71,7 @@
     <section class="eco-actions">
         <h2 class="section-title">今日环保行动</h2>
         <div class="cards-container">
-            <div class="eco-card">
+            <div class="eco-card" onclick="openModal('water-saving')">
 
                 <div class="card-img-placeholder">
                     <img src="images/index_card/card3.png" alt="card1" class="card-img">
@@ -73,14 +79,14 @@
                 <h3>节约用水</h3>
                 <p>缩短淋浴时间，修复漏水龙头</p>
             </div>
-            <div class="eco-card">
+            <div class="eco-card" onclick="openModal('reduce-plastic')">
                 <div class="card-img-placeholder">
                     <img src="images/index_card/card1.png" alt="card2" class="card-img">
                 </div>
                 <h3>减少塑料</h3>
                 <p>使用可重复使用的购物袋</p>
             </div>
-            <div class="eco-card">
+            <div class="eco-card" onclick="openModal('save-energy')">
                 <div class="card-img-placeholder">
                     <img src="images/index_card/card2.png" alt="card3" class="card-img">
                 </div>
@@ -89,6 +95,42 @@
             </div>
         </div>
     </section>
+
+    <!-- 环保行动详情模态框 -->
+    <div id="action-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <!-- 环保资讯板块 -->
+    <section class="eco-news">
+        <h2 class="section-title">环保资讯</h2>
+        <div class="news-container" onclick="openNewsModal('world-environment-day')">
+            <div class="news-item">
+                <h3>2025世界环境日主题发布</h3>
+                <p>今年世界环境日将聚焦塑料污染治理...</p>
+                <span class="news-date">2025-06-05</span>
+            </div>
+            <div class="news-item">
+                <h3>本地垃圾分类新规实施</h3>
+                <p>本市将从下月起实施新的垃圾分类管理办法...</p>
+                <span class="news-date">2025-05-20</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 环保资讯详情模态框 -->
+    <div id="news-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeNewsModal()">&times;</span>
+            <h2 id="news-modal-title"></h2>
+            <span id="news-modal-date" class="news-date"></span>
+            <div id="news-modal-content"></div>
+        </div>
+    </div>
 
     <!-- 页脚 -->
     <footer>

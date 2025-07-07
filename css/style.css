@@ -16,6 +16,26 @@ body {
 }
 
 /* 导航栏样式 */
+.bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: rgba(179, 178, 178, 0.699);
+}
+
 header {
   background-color: #4CAF50;
   padding: 1rem 2rem;
@@ -135,9 +155,188 @@ nav {
 }
 
 /* 卡片样式 */
-.eco-actions,
+.eco-actions {
+  padding: 4rem 2rem;
+}
+
 .knowledge-main {
   padding: 3rem 2rem;
+}
+
+.game-entry {
+  background-color: #f5f9f7;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.game-card {
+  display: flex;
+  max-width: 800px;
+  margin: 2rem auto;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.game-img {
+  width: 40%;
+  object-fit: cover;
+}
+
+.game-info {
+  padding: 2rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.game-info h3 {
+  color: #2c6e49;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.game-info p {
+  color: #333;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.eco-news {
+  padding: 4rem 2rem;
+}
+
+.news-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.news-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+.news-item h3 {
+  color: #2c6e49;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.news-item p {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.eco-card {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.eco-card:hover {
+  transform: translateY(-5px);
+}
+
+.news-item p {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.news-date {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+/* 模态框样式 */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  overflow: auto;
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 60%;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+#modal-title {
+  color: #2c6e49;
+  margin-bottom: 1rem;
+}
+
+#modal-content {
+  margin-top: 20px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* 新闻模态框样式 */
+#news-modal-title {
+  color: #2c3e50;
+}
+
+.news-date {
+  color: #7f8c8d;
+  font-size: 0.9em;
+  margin-bottom: 15px;
+  display: block;
+}
+
+#news-modal-content {
+  margin-top: 15px;
+  line-height: 1.6;
+}
+
+#news-modal-content p {
+  margin-bottom: 10px;
+}
+
+#news-modal-content ul {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+#modal-content p {
+  margin-bottom: 1rem;
+}
+
+#modal-content ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.news-date {
+  color: #999;
+  font-size: 0.9rem;
 }
 
 .section-title {
@@ -427,10 +626,12 @@ footer {
 
 .game-entry {
   text-align: center;
-  margin: 3rem 0; /* 增大上方间距 */
+  margin: 3rem 0;
+  /* 增大上方间距 */
 }
 
-.game-entry .read-more, .read-more,
+.game-entry .read-more,
+.read-more,
 .register-btn {
   background-color: #4CAF50;
   color: white;
@@ -443,11 +644,16 @@ footer {
 }
 
 .game-entry .read-more {
-  border: 3px solid #2E7D32; /* 显著边框 */
-  padding: 0.75rem 1.5rem; /* 增大内边距 */
-  font-size: 1.1rem; /* 稍大字体 */
-  text-decoration: none; /* 去除文字下划线 */
-  border-radius: 8px; /* 添加圆角 */
+  border: 3px solid #2E7D32;
+  /* 显著边框 */
+  padding: 0.75rem 1.5rem;
+  /* 增大内边距 */
+  font-size: 1.1rem;
+  /* 稍大字体 */
+  text-decoration: none;
+  /* 去除文字下划线 */
+  border-radius: 8px;
+  /* 添加圆角 */
 }
 
 /* 返回顶部按钮 */
