@@ -51,7 +51,7 @@
                     </div>
                     <h3>可回收物</h3>
                     <p>包括废纸、塑料、玻璃、金属和布料等</p>
-                    <button class="read-more">了解更多</button>
+                    <button class="read-more" onclick="showModal('recyclable')">了解更多</button>
                 </article>
 
                 <article class="knowledge-card">
@@ -60,7 +60,7 @@
                     </div>
                     <h3>有害垃圾</h3>
                     <p>包括废电池、废日光灯管、废水银温度计等</p>
-                    <button class="read-more">了解更多</button>
+                    <button class="read-more" onclick="showModal('harmful')">了解更多</button>
                 </article>
 
                 <article class="knowledge-card">
@@ -69,7 +69,7 @@
                     </div>
                     <h3>厨余垃圾</h3>
                     <p>包括剩菜剩饭、骨头、菜根菜叶等食品类废物</p>
-                    <button class="read-more">了解更多</button>
+                    <button class="read-more" onclick="showModal('kitchen')">了解更多</button>
                 </article>
 
                 <article class="knowledge-card">
@@ -78,7 +78,7 @@
                     </div>
                     <h3>其他垃圾</h3>
                     <p>包括砖瓦陶瓷、渣土、卫生间废纸等难以回收的废弃物</p>
-                    <button class="read-more">了解更多</button>
+                    <button class="read-more" onclick="showModal('others')">了解更多</button>
                 </article>
             </div>
             <!-- 游戏入口按钮 -->
@@ -102,6 +102,15 @@
             </div>
         </div>
     </footer>
+
+    <!-- 垃圾分类模态框 -->
+    <div id="garbageModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div id="modalBody"></div>
+        </div>
+    </div>
 
     <script src="js/main.js"></script>
 </body>

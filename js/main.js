@@ -1,10 +1,11 @@
 // 导航栏响应式功能
+
 const burger = document.querySelector('.burger');
 const navLinks = document.querySelector('.nav-links');
 
 burger.addEventListener('click', () => {
-  navLinks.classList.toggle('active');
-  burger.classList.toggle('toggle');
+    navLinks.classList.toggle('active');
+    burger.classList.toggle('toggle');
 });
 
 // 轮播图功能
@@ -13,34 +14,41 @@ const slides = document.querySelectorAll('.slide');
 const totalSlides = slides.length;
 
 function showSlide(n) {
-  slides.forEach(slide => slide.classList.remove('active'));
-  currentSlide = (n + totalSlides) % totalSlides;
-  slides[currentSlide].classList.add('active');
+    slides.forEach(slide => slide.classList.remove('active'));
+    currentSlide = (n + totalSlides) % totalSlides;
+    slides[currentSlide].classList.add('active');
 }
 
-document.querySelector('.next').addEventListener('click', () => {
-  showSlide(currentSlide + 1);
-});
+const nextBtn = document.querySelector('.next');
+const prevBtn = document.querySelector('.prev');
 
-document.querySelector('.prev').addEventListener('click', () => {
-  showSlide(currentSlide - 1);
-});
+if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+        showSlide(currentSlide + 1);
+    });
+}
+
+if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+        showSlide(currentSlide - 1);
+    });
+}
 
 // 自动轮播
 let slideInterval = setInterval(() => {
-  showSlide(currentSlide + 1);
+    showSlide(currentSlide + 1);
 }, 5000);
 
 // 鼠标悬停时暂停轮播
 const slider = document.querySelector('.slider');
 slider.addEventListener('mouseenter', () => {
-  clearInterval(slideInterval);
+    clearInterval(slideInterval);
 });
 
 slider.addEventListener('mouseleave', () => {
-  slideInterval = setInterval(() => {
-    showSlide(currentSlide + 1);
-  }, 5000);
+    slideInterval = setInterval(() => {
+        showSlide(currentSlide + 1);
+    }, 5000);
 });
 
 // 环保资讯详情数据
@@ -79,12 +87,12 @@ function openNewsModal(newsId) {
     const modalTitle = document.getElementById('news-modal-title');
     const modalDate = document.getElementById('news-modal-date');
     const modalContent = document.getElementById('news-modal-content');
-    
+
     // 设置模态框内容
     modalTitle.textContent = newsDetails[newsId].title;
     modalDate.textContent = newsDetails[newsId].date;
     modalContent.innerHTML = newsDetails[newsId].content;
-    
+
     // 显示模态框
     modal.style.display = 'block';
 }
@@ -96,10 +104,91 @@ function closeNewsModal() {
 }
 
 // 点击新闻模态框外部关闭
-window.addEventListener('click', function(event) {
+window.addEventListener('click', function (event) {
     const modal = document.getElementById('news-modal');
     if (event.target == modal) {
         closeNewsModal();
+    }
+});
+
+// 垃圾分类详情数据
+var garbageDetails = {
+    'recyclable': {
+        title: '可回收物',
+        content: `<p>可回收物是指适宜回收利用和资源化利用的生活废弃物，主要包括以下几类：</p>
+        <ul>
+            <li><strong>废纸</strong>：报纸、期刊、图书、各种包装纸等（污染严重的纸除外）</li>
+            <li><strong>塑料</strong>：各种塑料袋、塑料泡沫、塑料包装、一次性塑料餐盒餐具、硬塑料、塑料牙刷、塑料杯子、矿泉水瓶等</li>
+            <li><strong>玻璃</strong>：玻璃瓶和碎玻璃片、镜子、灯泡、暖瓶等</li>
+            <li><strong>金属</strong>：易拉罐、铁皮罐头盒、牙膏皮等</li>
+            <li><strong>布料</strong>：废弃衣服、桌布、洗脸巾、书包、鞋等</li>
+        </ul>
+        <p>投放提示：轻投轻放，清洁干燥，避免污染；废纸尽量平整；立体包装物请清空内容物，清洁后压扁投放；有尖锐边角的，应包裹后投放。`
+    },
+    'harmful': {
+        title: '有害垃圾',
+        content: `<p>有害垃圾是指对人体健康或者自然环境造成直接或者潜在危害的生活废弃物，主要包括以下几类：</p>
+        <ul>
+            <li><strong>电池</strong>：充电电池、纽扣电池、蓄电池等</li>
+            <li><strong>灯管</strong>：荧光灯管、LED灯管等</li>
+            <li><strong>家用化学品</strong>：杀虫剂、除草剂、清洁剂、化妆品等</li>
+            <li><strong>温度计</strong>：水银温度计、血压计等</li>
+            <li><strong>药品</strong>：过期药品、药品包装等</li>
+        </ul>
+        <p>投放提示：投放时请注意轻放；易破损的请连带包装或包裹后投放；如易挥发，请密封后投放。`
+    },
+    'kitchen': {
+        title: '厨余垃圾',
+        content: `<p>厨余垃圾是指居民日常生活及食品加工、饮食服务、单位供餐等活动中产生的垃圾，主要包括以下几类：</p>
+        <ul>
+            <li><strong>剩菜剩饭</strong>：米饭、面条、馒头、粥、肉块、骨头等</li>
+            <li><strong>蔬菜水果</strong>：菜叶、果皮、果核、根茎等</li>
+            <li><strong>食品废料</strong>：过期食品、面包、糕点、饼干等</li>
+            <li><strong>其他厨余</strong>：茶叶渣、咖啡渣、中药渣等</li>
+        </ul>
+        <p>投放提示：厨余垃圾应从产生时就与其他品种垃圾分开收集，投放前应尽量沥干水分；有包装物的厨余垃圾应将包装物去除后分类投放，包装物应投放到对应的可回收物或其他垃圾收集容器。`
+    },
+    'others': {
+        title: '其他垃圾',
+        content: `<p>其他垃圾是指除可回收物、有害垃圾、厨余垃圾以外的其他生活废弃物，主要包括以下几类：</p>
+        <ul>
+            <li><strong>砖瓦陶瓷</strong>：瓷砖、陶瓷碎片、花盆等</li>
+            <li><strong>渣土灰尘</strong>：灰土、渣土、水泥块等</li>
+            <li><strong>卫生用品</strong>：卫生纸、餐巾纸、湿巾、纸尿裤等</li>
+            <li><strong>其他物品</strong>：烟蒂、破碎花盆、一次性餐具等难以回收的废弃物</li>
+        </ul>
+        <p>投放提示：其他垃圾应投入指定的垃圾桶内；对于难以辨识类别的生活垃圾，可投入其他垃圾收集容器。`
+    }
+};
+
+// 显示垃圾分类模态框
+function showModal(type) {
+    const modal = document.getElementById('garbageModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+
+    // 设置模态框内容
+    modalTitle.textContent = garbageDetails[type].title;
+    modalBody.innerHTML = garbageDetails[type].content;
+
+    // 显示模态框
+    modal.style.display = 'block';
+}
+
+// 关闭垃圾分类模态框
+function closeGarbageModal() {
+    const modal = document.getElementById('garbageModal');
+    modal.style.display = 'none';
+}
+
+// 点击关闭按钮关闭模态框
+document.querySelector('.close-btn').addEventListener('click', closeGarbageModal);
+
+// 点击模态框外部关闭
+window.addEventListener('click', function (event) {
+    const modal = document.getElementById('garbageModal');
+    if (event.target == modal) {
+        closeGarbageModal();
     }
 });
 
@@ -148,11 +237,11 @@ function openModal(actionId) {
     const modal = document.getElementById('action-modal');
     const modalTitle = document.getElementById('modal-title');
     const modalContent = document.getElementById('modal-content');
-    
+
     // 设置模态框内容
     modalTitle.textContent = actionDetails[actionId].title;
     modalContent.innerHTML = actionDetails[actionId].content;
-    
+
     // 显示模态框
     modal.style.display = 'block';
 }
@@ -164,7 +253,7 @@ function closeModal() {
 }
 
 // 点击模态框外部关闭
-window.onclick = function(event) {
+window.onclick = function (event) {
     const modal = document.getElementById('action-modal');
     if (event.target == modal) {
         closeModal();
