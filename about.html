@@ -104,9 +104,22 @@
                 </div>
             </div>
         </div>
+            <div class="messages-list">
+                <h3>留言列表</h3>
+                <div id="messages"></div>
+            </div>
     </section>
 
     <!-- 页脚（同首页） -->
+    <!-- 成功提示模态框 -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>留言成功</h3>
+            <p>感谢您的留言，我们会尽快回复！</p>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-content">
             <p>&copy; 2025 贵州大学绿色地球环保组织</p>
@@ -118,6 +131,67 @@
         </div>
     </footer>
 
+    <script>
+// 获取并显示留言
+function loadMessages() {
+  fetch('http://localhost:3000/api/messages')
+    .then(response => response.json())
+    .then(messages => {
+      const messagesDiv = document.getElementById('messages');
+      messagesDiv.innerHTML = messages.map(msg => `
+        <div class="message">
+          <h4>${msg.name} (${msg.email})</h4>
+          <p>${msg.message}</p>
+          <small>${new Date(msg.created_at).toLocaleString()}</small>
+        </div>
+      `).join('');
+    })
+    .catch(error => console.error('获取留言失败:', error));
+}
+
+// 处理表单提交
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const formData = {
+    name: document.getElementById('contact-name').value,
+    email: document.getElementById('contact-email').value,
+    message: document.getElementById('contact-message').value
+  };
+
+  fetch('http://localhost:3000/api/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    // 显示成功模态框
+    const modal = document.getElementById('success-modal');
+    modal.style.display = 'block';
+
+    // 点击关闭按钮关闭模态框
+    document.querySelector('.close-btn').onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    // 点击模态框外部关闭
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+    this.reset();
+    loadMessages(); // 提交后重新加载留言列表
+  })
+  .catch(error => {
+    console.error('发送留言失败:', error);
+    alert('留言发送失败，请重试。');
+  });
+});
+
+// 页面加载时获取留言
+loadMessages();
+    </script>
     <script src="js/main.js"></script>
 </body>
 
