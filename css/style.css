@@ -695,6 +695,10 @@ footer {
   text-overflow: ellipsis;
 }
 
+.event.event-registered {
+  background-color: #ff4444;
+}
+
 .event-details {
   width: 40%;
 }
@@ -877,6 +881,14 @@ footer {
   cursor: pointer;
   margin-top: 1rem;
   display: inline-block;
+}
+
+.register-btn.cancel {
+    background-color: #ff4444;
+}
+
+.register-btn.cancel:hover {
+    background-color: #cc0000;
 }
 
 .game-entry .read-more {

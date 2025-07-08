@@ -41,15 +41,17 @@ let slideInterval = setInterval(() => {
 
 // 鼠标悬停时暂停轮播
 const slider = document.querySelector('.slider');
-slider.addEventListener('mouseenter', () => {
-    clearInterval(slideInterval);
-});
+if (slider) {
+    slider.addEventListener('mouseenter', () => {
+        clearInterval(slideInterval);
+    });
 
-slider.addEventListener('mouseleave', () => {
-    slideInterval = setInterval(() => {
-        showSlide(currentSlide + 1);
-    }, 5000);
-});
+    slider.addEventListener('mouseleave', () => {
+        slideInterval = setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5000);
+    });
+}
 
 // 环保资讯详情数据
 const newsDetails = {
@@ -178,3 +180,60 @@ window.onclick = function (event) {
         closeModal();
     }
 };
+
+// 活动报名功能
+document.addEventListener('DOMContentLoaded', function() {
+    const registerButtons = document.querySelectorAll('.register-btn');
+    const successMessage = document.querySelector('.success-message');
+    const closeMessageBtn = document.querySelector('.close-message');
+    
+    // 检查必要元素是否存在
+    if (!registerButtons.length || !successMessage || !closeMessageBtn) {
+        console.error('活动报名功能所需元素未找到');
+        return;
+    }
+    
+    // 关闭成功消息
+    closeMessageBtn.addEventListener('click', function() {
+        successMessage.classList.add('hidden');
+    });
+    
+    registerButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const eventItem = this.closest('.event-item');
+            if (!eventItem) return;
+            
+            const eventTitle = eventItem.querySelector('h4')?.textContent.trim();
+            if (!eventTitle) return;
+            
+            const isRegistered = this.textContent.trim() === '取消报名';
+            
+            // 切换按钮状态和样式
+            if (isRegistered) {
+                this.textContent = '立即报名';
+                this.classList.remove('cancel');
+            } else {
+                this.textContent = '取消报名';
+                this.classList.add('cancel');
+            }
+            
+            // 显示成功消息
+            successMessage.classList.remove('hidden');
+            setTimeout(() => {
+                successMessage.classList.add('hidden');
+            }, 3000);
+            
+            // 更新日历事件颜色
+            const calendarEvents = document.querySelectorAll('.calendar .event');
+            calendarEvents.forEach(event => {
+                if (event.textContent.trim() === eventTitle) {
+                    if (!isRegistered) {
+                        event.classList.add('event-registered');
+                    } else {
+                        event.classList.remove('event-registered');
+                    }
+                }
+            });
+        });
+    });
+});
