@@ -7,6 +7,51 @@
   <title>环保知识 - 绿色地球</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" type="image/png" href="../images/favicon.png">
+  <style>
+    /*仅添加必要的交互样式，不修改原有布局 */
+    .topic {
+      margin-bottom: 30px;
+      padding: 0 15px;
+      /* 增加内边距避免内容贴边 */
+    }
+
+    .topic-image {
+      max-width: 600px;
+      /* 限制最大宽度，避免图片过大 */
+      width: 100%;
+      /* 适应容器宽度 */
+      height: auto;
+      /* 保持比例不变 */
+      cursor: pointer;
+      border-radius: 8px;
+      transition: transform 0.2s;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      /* 增加轻微阴影提升质感 */
+    }
+
+    .topic-image:hover {
+      transform: scale(1.02);
+    }
+
+    .topic-text {
+      display: none;
+      /* 默认隐藏文字 */
+      margin-top: 15px;
+      padding: 15px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      line-height: 1.6;
+      /* 优化行高提升可读性 */
+    }
+
+    /* 响应式适配：小屏幕自动调整 */
+    @media (max-width: 768px) {
+      .topic-image {
+        max-width: 100%;
+        /* 小屏幕下占满宽度 */
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -33,36 +78,45 @@
     <aside class="knowledge-sidebar">
       <h3>知识分类</h3>
       <ul>
-        <li class="active"><a href="../knowledge.html">垃圾分类</a></li>
-        <li class="active"><a href="energySaving.html">节能减排</a></li>
-        <li class="active"><a href="greenTravelling.html">绿色出行</a></li>
-        <li class="active"><a href="sustainableLiving.html">可持续生活</a></li>
+        <li>垃圾分类</li>
+        <li class="active">节能减排</li>
+        <li>绿色出行</li>
+        <li>可持续生活</li>
       </ul>
     </aside>
 
     <!-- 主区域 -->
     <main class="knowledge-main">
+      <div class="topic">
+        <h2>节约用水</h2>
+        <!-- 点击图片显示文字 -->
+        <img src="../images/knowledge/energySaving/water.png" alt="节约用水" class="topic-image"
+          onclick="toggleText('waterText')">
+        <div id="waterText" class="topic-text">
+          节约用水：从清晨洗漱时的间断开水，到洗菜水二次冲厕，举手之劳里藏着对水资源的敬畏。全球超 10 亿人面临缺水困境，别让 “细水长流”
+          成为记忆。每一次及时关紧的水龙头，每一次合理的循环用水，都是在为干涸的土地储备生机，为后代留存江河的馈赠。
+        </div>
+      </div>
 
-节约用水：从清晨洗漱时的间断开水，到洗菜水二次冲厕
-，举手之劳里藏着对水资源的敬畏。全球超 10 亿人面临
-缺水困境，别让 “细水长流” 成为记忆。每一次及时关紧
-的水龙头，每一次合理的循环用水，都是在为干涸的土地
-储备生机，为后代留存江河的馈赠。
+      <div class="topic">
+        <h2>节约用电</h2>
+        <img src="../images/knowledge/energySaving/dian.png" alt="节约用电" class="topic-image"
+          onclick="toggleText('elecText')">
+        <div id="elecText" class="topic-text">
+          节约用电：夜晚离开房间时的随手关灯，空调设置在
+          26℃的舒适区间，这些微小习惯实则重若千钧。一度电可供冰箱运转一整天，也能让节能灯亮半月有余。电是现代生活的血液，却非取之不尽，珍惜每度电，就是在守护能源可持续的循环，让光明与温暖长久延续。
+        </div>
+      </div>
 
-节约用电：夜晚离开房间时的随手关灯，空调设置在 26℃
-的舒适区间，这些微小习惯实则重若千钧。一度电可供冰箱
-运转一整天，也能让节能灯亮半月有余。电是现代生活的血
-液，却非取之不尽，珍惜每度电，就是在守护能源可持续的
-循环，让光明与温暖长久延续。
-
-节约粮食：食堂里少取一勺的自觉，餐桌上打包剩菜的习惯
-，都是对 “盘中餐” 的最好致敬。从播种到收获，每粒粮食
-都历经数十道工序，凝聚着农人烈日下的辛劳。杜绝 “舌尖
-上的浪费”，不仅是对劳动的尊重，更是在为全球粮食安全添
-砖加瓦，让 “温饱” 二字永远坚实。
-
-
-
+      <div class="topic">
+        <h2>节约粮食</h2>
+        <img src="../images/knowledge/energySaving/food.png" alt="节约粮食" class="topic-image"
+          onclick="toggleText('foodText')">
+        <div id="foodText" class="topic-text">
+          节约粮食：食堂里少取一勺的自觉，餐桌上打包剩菜的习惯，都是对 “盘中餐” 的最好致敬。从播种到收获，每粒粮食都历经数十道工序，凝聚着农人烈日下的辛劳。杜绝
+          “舌尖上的浪费”，不仅是对劳动的尊重，更是在为全球粮食安全添砖加瓦，让 “温饱” 二字永远坚实。
+        </div>
+      </div>
     </main>
   </div>
 
@@ -74,17 +128,24 @@
     <div class="footer-content">
       <p>&copy; 2025 贵州大学绿色地球环保组织</p>
       <div class="social-icons">
-        <a href="https://weibo.com/u/6593199887"><img src="../images/icon/weibo.png" alt="weibo"></a>
-        <a href="https://space.bilibili.com/401742377"><img src="../images/icon/bilibili.png" alt="bilibili"></a>
-        <a href="https://www.yuanshen.com/"><img src="../images/icon/wechat.png" alt="wechat"></a>
+        <a href="https://weibo.com/u/6593199887"><img src="../images/icon/weibo.png" alt="微博"></a>
+        <a href="https://space.bilibili.com/401742377"><img src="../images/icon/bilibili.png" alt="哔哩哔哩"></a>
+        <a href="https://www.yuanshen.com/"><img src="../images/icon/wechat.png" alt="微信"></a>
       </div>
     </div>
   </footer>
 
   <!-- 垃圾分类模态框 -->
 
-
   <script src="../js/main.js"></script>
+  <!-- 添加交互脚本 -->
+  <script>
+    // 点击图片切换文字显示/隐藏
+    function toggleText(id) {
+      const text = document.getElementById(id);
+      text.style.display = text.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
 </body>
 
 </html>
